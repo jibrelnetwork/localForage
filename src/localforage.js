@@ -1,6 +1,6 @@
+// @flow
+
 import idbDriver from './drivers/indexeddb';
-import websqlDriver from './drivers/websql';
-import localstorageDriver from './drivers/localstorage';
 import serializer from './utils/serializer';
 import Promise from './utils/promise';
 import executeCallback from './utils/executeCallback';

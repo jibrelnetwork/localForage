@@ -1,25 +1,33 @@
-function getIDB() {
-    /* global indexedDB,webkitIndexedDB,mozIndexedDB,OIndexedDB,msIndexedDB */
-    try {
-        if (typeof indexedDB !== 'undefined') {
-            return indexedDB;
-        }
-        if (typeof webkitIndexedDB !== 'undefined') {
-            return webkitIndexedDB;
-        }
-        if (typeof mozIndexedDB !== 'undefined') {
-            return mozIndexedDB;
-        }
-        if (typeof OIndexedDB !== 'undefined') {
-            return OIndexedDB;
-        }
-        if (typeof msIndexedDB !== 'undefined') {
-            return msIndexedDB;
-        }
-    } catch (e) {
-        return;
+// @flow
+
+import type { IDBFactory } from '../drivers/indexeddb.flow'
+
+function getIDB(): IDBFactory {
+  try {
+    if (typeof window.indexedDB !== 'undefined') {
+      return window.indexedDB
     }
+
+    if (typeof window.webkitIndexedDB !== 'undefined') {
+      return window.webkitIndexedDB
+    }
+
+    if (typeof window.mozIndexedDB !== 'undefined') {
+      return window.mozIndexedDB
+    }
+
+    if (typeof window.OIndexedDB !== 'undefined') {
+      return window.OIndexedDB
+    }
+
+    if (typeof window.msIndexedDB !== 'undefined') {
+      return window.msIndexedDB
+    }
+  } catch (e) {
+    throw e
+  }
+
+  throw new Error('indexedDB is not available')
 }
 
-var idb = getIDB();
-export default idb;
+export default getIDB()
